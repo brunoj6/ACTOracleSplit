@@ -1,0 +1,106 @@
+# Fine-tuning Configuration for ACTOracleSplit
+# =============================================
+
+# This configuration file extends the original deploy_policy.yml
+# to support fine-tuned models with different approaches and levels.
+
+# Base configuration (inherits from deploy_policy.yml)
+task_name: null
+policy_name: ACTOracleSplit
+task_config: null
+ckpt_setting: null
+seed: 0
+instruction_type: unseen
+
+use_wm: True       
+
+# ACTOracleSplit/ACT params (match ACT defaults where sensible)
+action_dim: 14
+kl_weight: 1.0
+chunk_size: 50
+hidden_dim: 512
+dim_feedforward: 4096
+temporal_agg: false
+device: cuda:0
+
+ckpt_dir: null
+policy_class: ACTOracleSplit
+num_epochs: 8000
+
+position_embedding: sine
+lr_backbone: 0.00001
+weight_decay: 0.0001
+lr: 0.00001
+masks: false
+dilation: false
+backbone: resnet18
+nheads: 8
+enc_layers: 4
+dec_layers: 7
+pre_norm: false
+dropout: 0.1
+
+camera_names:
+  - cam_high
+  - cam_right_wrist
+  - cam_left_wrist
+
+# Fine-tuning specific configuration
+finetuned_approach: curriculum  # Options: curriculum, world_model, partial
+finetuned_level: final         # Options: level1, level2, level3, final
+finetuned_checkpoint_dir: act_ckpt/finetuned
+
+# Curriculum learning configuration
+curriculum:
+  levels:
+    - name: level1
+      description: "Remove only right camera from left arm"
+      difficulty: easy
+      expected_success_rate: 0.85
+      epochs: 100
+      learning_rate_multiplier: 2.0
+    - name: level2
+      description: "Remove right camera + half head camera from left arm"
+      difficulty: medium
+      expected_success_rate: 0.80
+      epochs: 100
+      learning_rate_multiplier: 1.0
+    - name: level3
+      description: "Remove right camera + full head camera from left arm"
+      difficulty: hard
+      expected_success_rate: 0.75
+      epochs: 100
+      learning_rate_multiplier: 0.5
+
+# World model configuration
+wm_config_dir: /home/joe/womap/configs
+wm_config_name: train_robotwin_handover_block
+wm_ckpt_path: /home/joe/RoboTwin/coopwm_ckpt/handover_block/head-cam-split_2025_09_26_10_59_03-latest.pth.tar
+
+# Training configuration for fine-tuning
+finetuning:
+  base_learning_rate: 1e-5
+  fine_tuning_learning_rate: 1e-6
+  epochs_per_level: 100
+  batch_size: 32
+  evaluation_frequency: 10
+  early_stopping_patience: 20
+  weight_decay: 1e-4
+
+# Evaluation configuration
+evaluation:
+  num_episodes: 100
+  metrics: ["success_rate", "action_quality", "prediction_accuracy"]
+  comparison_policies: ["original", "partial_finetuned", "wm_finetuned"]
+  
+# Logging configuration
+logging:
+  enable_camera_prediction_logging: true
+  enable_debug_logging: true
+  log_frequency: 10
+  save_checkpoints: true
+  save_metadata: true
+
+
+
+

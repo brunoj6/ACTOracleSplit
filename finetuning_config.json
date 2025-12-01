@@ -1,0 +1,54 @@
+{
+  "finetuning": {
+    "approaches": {
+      "partial": {
+        "description": "Fine-tune with partial camera information",
+        "levels": {
+          "level1": {
+            "description": "Remove only right camera from left arm",
+            "difficulty": "easy",
+            "expected_success_rate": 0.85
+          },
+          "level2": {
+            "description": "Remove right camera + half head camera from left arm",
+            "difficulty": "medium",
+            "expected_success_rate": 0.8
+          },
+          "level3": {
+            "description": "Remove right camera + full head camera from left arm",
+            "difficulty": "hard",
+            "expected_success_rate": 0.75
+          }
+        }
+      },
+      "world_model": {
+        "description": "Fine-tune with world model predictions",
+        "expected_success_rate": 0.8
+      },
+      "curriculum": {
+        "description": "Curriculum learning across difficulty levels",
+        "strategy": "progressive_difficulty"
+      }
+    }
+  },
+  "training": {
+    "base_learning_rate": 1e-05,
+    "fine_tuning_learning_rate": 1e-06,
+    "epochs_per_level": 100,
+    "batch_size": 32,
+    "evaluation_frequency": 10
+  },
+  "evaluation": {
+    "num_episodes": 100,
+    "metrics": [
+      "success_rate",
+      "action_quality",
+      "prediction_accuracy"
+    ],
+    "comparison_policies": [
+      "original",
+      "partial_finetuned",
+      "wm_finetuned"
+    ]
+  }
+}

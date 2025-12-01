@@ -1,0 +1,72 @@
+{
+    "sim-handover_block-aloha-agilex_clean_50-50": {
+        "dataset_dir": "/home/joe/RoboTwin/policy/ACTFourCam/processed_data/sim-handover_block/aloha-agilex_clean_50-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-grab_roller-aloha-agilex_clean_50-50": {
+        "dataset_dir": "./processed_data/sim-grab_roller/aloha-agilex_clean_50-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-handover_mic-aloha-agilex_clean_50-50": {
+        "dataset_dir": "./processed_data/sim-handover_mic/aloha-agilex_clean_50-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-handover_block-demo_clean-50": {
+        "dataset_dir": "./processed_data/sim-handover_block/demo_clean-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-handover_block-demo_clean_easy-50": {
+        "dataset_dir": "./processed_data/sim-handover_block/demo_clean_easy-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-lift_pot-aloha-agilex_clean_50-50": {
+        "dataset_dir": "./processed_data/sim-lift_pot/aloha-agilex_clean_50-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    },
+    "sim-lift_pot-demo_clean-50": {
+        "dataset_dir": "./processed_data/sim-lift_pot/aloha-agilex_clean_50-50",
+        "num_episodes": 50,
+        "episode_len": 1000,
+        "camera_names": [
+            "cam_high",
+            "cam_right_wrist",
+            "cam_left_wrist"
+        ]
+    }
+}

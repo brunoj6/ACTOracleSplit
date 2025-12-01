@@ -1,0 +1,72 @@
+# policy/ACTOracleSplit/deploy_policy.yml
+task_name: null
+policy_name: ACTOracleSplit
+task_config: null
+ckpt_setting: null
+seed: 0
+instruction_type: unseen
+
+use_wm: True  
+
+# ACTOracleSplit/ACT params (match ACT defaults where sensible)
+action_dim: 14
+kl_weight: 1.0
+chunk_size: 50
+hidden_dim: 512 # 384
+dim_feedforward: 4096 # 1536
+temporal_agg: False
+device: cuda:0
+
+ckpt_dir: null
+policy_class: ACTOracleSplit
+num_epochs: 2000
+
+position_embedding: sine
+lr_backbone: 0.00001
+weight_decay: 0.0001
+lr: 0.00001
+masks: false
+dilation: false
+backbone: resnet18
+nheads: 8
+enc_layers: 4
+dec_layers: 7
+pre_norm: false
+dropout: 0.1
+
+camera_names:
+  - cam_high
+  - cam_right_wrist
+  - cam_left_wrist
+
+# left_ckpt_name:  left_policy_last.ckpt
+# right_ckpt_name: right_policy_last.ckpt
+# Grab Roller WM Paths
+
+wm_config_dir:   /home/joe/womap/configs
+
+# Handover Mic WM Paths
+#wm_config_name:  train_robotwin_handover_mic
+#wm_ckpt_path: /home/joe/RoboTwin/coopwm_ckpt/handover_mic/test_run_2025_09_11_12_35_18-latest.pth.tar
+
+# Lift Pot 
+wm_config_name:  train_robotwin_lift_pot
+wm_ckpt_path: /home/joe/RoboTwin/coopwm_ckpt/lift_pot/lift_pot_coruscant_2025_11_19_08_58_40-ep80.pth.tar
+
+# Grab Roller WM Paths
+#wm_config_name:  train_robotwin_grab_roller
+#wm_ckpt_path: /home/joe/RoboTwin/coopwm_ckpt/grab_roller/test_run_2025_09_15_13_19_16-latest.pth.tar
+
+# Handover Block WM Paths
+#wm_config_name:  train_robotwin_handover_block
+#wm_ckpt_path: /home/joe/RoboTwin/coopwm_ckpt/handover_block/handover_block_coruscant_2025_11_11_12_03_51-ep80.pth.tar
+# demo_easy_2025_10_27_14_03_43-ep80.pth.tar # Smaller Red Block Size
+# robot-handover-block_2025_10_23_04_50_13-latest.pth.tar
+# robot-handover-block_2025_10_22_07_41_27-ep80.pth.tar
+# robot-handover-block_2025_10_20_17_30_15-ep30.pth.tar 
+# robot-handover-block_2025_10_20_17_30_15-ep30.pth.tar # Higher visual weights lower KL weights
+# robot-handover-block_2025_10_20_08_43_48-latest.pth.tar # Flipped left/right head splits  
+# robot-handover-block_2025_10_15_12_01_18-latest.pth.tar # BGR predictions
+# handover_block_coruscant_2025_11_11_12_03_51-ep80.pth.tar # No randomization 
+
+
